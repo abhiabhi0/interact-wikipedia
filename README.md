@@ -2,7 +2,7 @@
 
 This project provides api to interact with Wikipedia using wikipedia apis and analysis the text.
 
-It contains two apis:
+It contain two apis:
 
 `/v1/word-frequency-analysis` returns the `n`most frequent words in the `topic`. `topic` and `n` are query parameters.
 
