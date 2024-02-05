@@ -1,0 +1,86 @@
+openapi: 3.0.3
+info:
+  title: Interact Wikipedia APIs
+  description: |-
+    Interact with wikipedia APIs and analyze text
+  contact:
+    email: mailabhi593@gmail.com
+  version: 0.0.1
+externalDocs:
+  description: Find out more about this project
+  url: https://github.com/abhiabhi0/interact-wikipedia/blob/main/README.md
+servers:
+  - url: http://localhost:5000
+tags:
+  - name: text-analysis
+    description: Analysis the content returned from Wikipedia
+paths:
+  /v1/word-frequency-analysis:
+    get:
+      tags:
+        - text-analysis
+      description: Get the n most frequent word in the text
+      parameters:
+        - name: topic
+          in: query
+          description: topic from which want the n most frequent words
+          required: true
+          schema:
+            type: string
+        - name: n
+          in: query
+          description: number of most frequent words wanted
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Words'          
+        '404':
+          description: Page not found
+  /v1/search-history:
+    get:
+      tags:
+        - text-analysis
+      description: Get the search-history
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/History'
+components:
+  schemas:
+    Words:
+      type: object
+      properties:
+        top_words:
+          type: array
+          items:
+            type: object
+            properties:
+              word:
+                type: string
+              frequency:
+                type: integer
+    History:
+      type: array
+      items:
+        type: object
+        properties:
+          topic:
+            type: string
+          top_words:
+            type: array
+            items:
+              type: object
+              properties:
+                word:
+                  type: string
+                frequency:
+                  type: integer
